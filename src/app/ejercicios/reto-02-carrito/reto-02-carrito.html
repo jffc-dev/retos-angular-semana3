@@ -16,7 +16,7 @@
     <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
 
 
-      @for (producto of productos; track producto.id) {
+      @for (producto of productos(); track producto.id) {
         <app-product-card
           [id]="producto.id"
           [nombre]="producto.nombre"
@@ -43,7 +43,7 @@
     </div>
 
     <div class="space-y-3 mb-6">
-      @for( productoCarrito of elementosCarrito; track $index ){
+      @for( productoCarrito of elementosCarrito(); track $index ){
         <div class="flex items-center gap-3 bg-slate-800 rounded-xl p-3">
           <img
             [src]="productoCarrito.imagen"
@@ -67,12 +67,12 @@
     <div class="space-y-3">
       <div class="flex justify-between text-sm text-slate-300">
         <span>Total de items</span>
-        <span class="font-medium text-white">{{ calcularCantidad() }}</span>
+        <span class="font-medium text-white">{{ cantidadDeItems() }}</span>
       </div>
 
       <div class="flex justify-between text-sm text-slate-300">
         <span>Total a pagar</span>
-        <span class="font-semibold text-emerald-400">{{ calcularPrecioTotal() }}</span>
+        <span class="font-semibold text-emerald-400">{{ precioTotal() }}</span>
       </div>
     </div>
   </aside>
