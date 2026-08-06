@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ITarea } from '../../interfaces/tarea.interface';
 import { TareaItemComponent } from './tarea-item/tarea-item';
 
@@ -15,18 +15,14 @@ export class Reto01TodoStats {
   // effect() en el constructor que sincronice document.title con
   // pendientes().
 
-  tareas: ITarea[] = [
-    { id: 1, texto: 'Aprender signal()', completada: true },
-    { id: 2, texto: 'Aprender computed()', completada: false },
-    { id: 3, texto: 'Aprender effect()', completada: false },
-  ];
+  tareasSignal = signal<ITarea[]>([])
 
   total(): number {
-    return this.tareas.length;
+    return this.tareasSignal().length;
   }
 
   completadas(): number {
-    return this.tareas.filter((tarea) => tarea.completada).length;
+    return this.tareasSignal().filter((tarea) => tarea.completada).length;
   }
 
   pendientes(): number {
@@ -41,17 +37,25 @@ export class Reto01TodoStats {
     const texto = input.value.trim();
     if (!texto) return;
 
-    this.tareas = [...this.tareas, { id: Date.now(), texto, completada: false }];
+    this.tareasSignal.update((listaActual)=>{
+      return [...listaActual, { id: Date.now(), texto, completada: false }];
+    })
     input.value = '';
   }
 
   alternarCompletada(id: number): void {
-    this.tareas = this.tareas.map((tarea) =>
-      tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea,
-    );
+    this.tareasSignal.update((listaActual) => {
+      return listaActual.map((tarea) =>
+        tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea,
+      );
+    })
+
+
   }
 
   eliminarTarea(id: number): void {
-    this.tareas = this.tareas.filter((tarea) => tarea.id !== id);
+    this.tareasSignal.update((listaActual)=>{
+      return listaActual.filter((tarea) => tarea.id !== id)
+    })
   }
 }
