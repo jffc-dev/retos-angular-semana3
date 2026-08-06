@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { ITarea } from '../../interfaces/tarea.interface';
 import { TareaItemComponent } from './tarea-item/tarea-item';
 
@@ -15,23 +15,35 @@ export class Reto01TodoStats {
   // effect() en el constructor que sincronice document.title con
   // pendientes().
 
-  tareasSignal = signal<ITarea[]>([])
+  constructor(){
+    effect(() => {
+      document.title = `Tienes ${this.pendientes()} tareas pendientes`
+    })
+  }
 
-  total(): number {
+  tareasSignal = signal<ITarea[]>([
+    { id: 1, texto: 'Aprender signal()', completada: true },
+    { id: 2, texto: 'Aprender computed()', completada: false },
+    { id: 3, texto: 'Aprender effect()', completada: false },
+  ])
+
+  total = computed<number>(() => {
     return this.tareasSignal().length;
-  }
+  })
 
-  completadas(): number {
-    return this.tareasSignal().filter((tarea) => tarea.completada).length;
-  }
+  completadas = computed<number>(() => {
+    const listaFiltrada = this.tareasSignal().filter((tarea) => tarea.completada === true)
+    return listaFiltrada.length;
+  })
 
-  pendientes(): number {
-    return this.total() - this.completadas();
-  }
+  pendientes = computed<number>(() => {
+    const listaFiltrada = this.tareasSignal().filter((tarea) => tarea.completada === false)
+    return listaFiltrada.length;
+  })
 
-  porcentajeAvance(): number {
+  porcentajeAvance = computed<number>(() => {
     return this.total() === 0 ? 0 : Math.round((this.completadas() / this.total()) * 100);
-  }
+  })
 
   agregarTarea(input: HTMLInputElement): void {
     const texto = input.value.trim();
@@ -49,8 +61,6 @@ export class Reto01TodoStats {
         tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea,
       );
     })
-
-
   }
 
   eliminarTarea(id: number): void {
