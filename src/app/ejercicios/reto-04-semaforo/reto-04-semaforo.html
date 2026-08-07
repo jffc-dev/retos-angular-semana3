@@ -1,0 +1,25 @@
+<section class="mx-auto max-w-xs rounded-xl border border-gray-200 p-6 shadow-sm text-center">
+  <h2 class="text-xl font-semibold text-gray-900">Reto 4 · Semáforo interactivo</h2>
+  <p class="mt-1 text-sm text-gray-600">
+    Pendiente: usa <code>ngStyle</code> para el color/opacidad de cada luz y
+    <code>ngClass</code> para resaltar la luz activa.
+  </p>
+
+  <div class="mt-6 inline-flex flex-col gap-4 rounded-2xl bg-slate-800 p-4">
+    @for (luz of luces; track luz.estado) {
+      <span class="h-16 w-16 rounded-full border-4 border-slate-700 bg-slate-600"></span>
+    }
+  </div>
+
+  <p class="mt-4 text-sm text-gray-700">
+    Estado actual: <span class="font-semibold">{{ estadoActual() }}</span>
+  </p>
+
+  <button
+    type="button"
+    (click)="siguienteEstado()"
+    class="mt-4 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+  >
+    Cambiar luz
+  </button>
+</section>

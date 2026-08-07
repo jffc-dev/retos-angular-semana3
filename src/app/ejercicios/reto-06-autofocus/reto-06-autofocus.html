@@ -1,0 +1,37 @@
+<section class="mx-auto max-w-md rounded-xl border border-gray-200 p-6 shadow-sm">
+  <h2 class="text-xl font-semibold text-gray-900">Reto 6 · Autofocus + validación</h2>
+  <p class="mt-1 text-sm text-gray-600">
+    Pendiente: usa <code>viewChild()</code> para capturar el input, enfocarlo al
+    montar y llamar <code>.focus()</code> / <code>.select()</code> desde los botones.
+  </p>
+
+  <input
+    #inputRef
+    type="text"
+    placeholder="Escribe tu nombre (mín. 3 letras)..."
+    [value]="nombre()"
+    (input)="actualizarNombre($event)"
+    class="mt-4 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none"
+  />
+
+  @if (mostrarError()) {
+    <p class="mt-1 text-xs text-red-600">Escribe al menos 3 letras.</p>
+  }
+
+  <div class="mt-4 flex gap-2">
+    <button
+      type="button"
+      (click)="seleccionarTodo()"
+      class="rounded-md bg-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-300"
+    >
+      Seleccionar todo
+    </button>
+    <button
+      type="button"
+      (click)="limpiar()"
+      class="rounded-md bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+    >
+      Limpiar
+    </button>
+  </div>
+</section>

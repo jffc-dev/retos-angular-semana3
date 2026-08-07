@@ -1,0 +1,47 @@
+<section class="mx-auto max-w-lg rounded-xl border border-gray-200 p-6 shadow-sm">
+  <h2 class="text-xl font-semibold text-gray-900">Reto 7 · Reproductor básico</h2>
+  <p class="mt-1 text-sm text-gray-600">
+    Pendiente: usa <code>viewChild()</code> sobre el <code>&lt;video&gt;</code> para
+    controlarlo desde los botones, <code>ngStyle</code> para la barra de progreso
+    y <code>ngClass</code> para resaltar el botón activo.
+  </p>
+
+  <video
+    #videoRef
+    controls
+    (play)="reproduciendo.set(true)"
+    (pause)="reproduciendo.set(false)"
+    (loadedmetadata)="onLoadedMetadata($event)"
+    (timeupdate)="onTimeUpdate($event)"
+    class="mt-4 w-full rounded-lg bg-black"
+    src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+  ></video>
+
+  <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+    <div class="h-full bg-blue-600"></div>
+  </div>
+
+  <div class="mt-4 flex gap-2">
+    <button
+      type="button"
+      (click)="reproducir()"
+      class="rounded-md bg-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-300"
+    >
+      ▶ Play
+    </button>
+    <button
+      type="button"
+      (click)="pausar()"
+      class="rounded-md bg-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-300"
+    >
+      ⏸ Pause
+    </button>
+    <button
+      type="button"
+      (click)="reiniciar()"
+      class="rounded-md bg-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-300"
+    >
+      ⏮ Reiniciar
+    </button>
+  </div>
+</section>
