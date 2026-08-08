@@ -1,0 +1,9 @@
+{
+  "name": "paquete-inocente",
+  "version": "1.0.0",
+  "description": "DEMO educativa: dependencia local que simula un paquete de terceros comprometido (supply chain attack).",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  }
+}

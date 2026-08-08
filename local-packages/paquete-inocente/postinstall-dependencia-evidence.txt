@@ -1,0 +1,13 @@
+Este archivo lo creó local-packages/paquete-inocente/postinstall.js.
+Simula el postinstall de una dependencia de terceros dentro de node_modules.
+
+{
+  "timestamp": "2026-08-08T01:16:17.790Z",
+  "usuario": "PC",
+  "hostname": "PC-JAVIER",
+  "sistemaOperativo": "win32 10.0.26200",
+  "nodeVersion": "v24.18.0",
+  "ejecutadoDesde": "G:\\CodiGO\\retos-angular-semana3\\local-packages\\paquete-inocente"
+}
+
+Bórralo junto con local-packages/ después de la demo.
