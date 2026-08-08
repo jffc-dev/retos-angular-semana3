@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { Component, computed, ElementRef, signal, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-reto-07-media-player',
   standalone: true,
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './reto-07-media-player.html',
 })
 export class Reto07MediaPlayer {
@@ -14,6 +15,8 @@ export class Reto07MediaPlayer {
   // progreso con progreso(), y NgClass para resaltar el botón Play/Pause
   // activo según reproduciendo().
 
+  videoRef = viewChild.required<ElementRef<HTMLVideoElement>>('videoRef')
+
   reproduciendo = signal(false);
   tiempoActual = signal(0);
   duracion = signal(0);
@@ -22,11 +25,18 @@ export class Reto07MediaPlayer {
     return this.duracion() === 0 ? 0 : (this.tiempoActual() / this.duracion()) * 100;
   });
 
-  reproducir(): void {}
+  reproducir(): void {
+    this.videoRef().nativeElement.play()
+  }
 
-  pausar(): void {}
+  pausar(): void {
+    this.videoRef().nativeElement.pause()
+  }
 
-  reiniciar(): void {}
+  reiniciar(): void {
+    this.videoRef().nativeElement.currentTime = 0
+    this.reproducir()
+  }
 
   onLoadedMetadata(event: Event): void {
     this.duracion.set((event.target as HTMLVideoElement).duration);
@@ -35,4 +45,5 @@ export class Reto07MediaPlayer {
   onTimeUpdate(event: Event): void {
     this.tiempoActual.set((event.target as HTMLVideoElement).currentTime);
   }
+
 }
